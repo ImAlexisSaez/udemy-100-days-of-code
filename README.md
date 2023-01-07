@@ -5,3 +5,4 @@ Código generado en la visualización activa del curso de Udemy "*100 Days of Co
 Diario de seguimiento del curso:
 - *Día 1*: completado el 06/01/2023.
 - *Día 2*: completado el 06/01/2023.
+- *Día 3*: completado el 07/01/2023.

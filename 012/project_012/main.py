@@ -3,33 +3,40 @@ import os
 
 from art import logo
 
+# Constants
+EASY_LEVEL_ATTEMPTS = 10
+HARD_LEVEL_ATTEMPTS = 5
 
-def guess_the_number():
-    # Presentación del juego
+
+def _print_intro():
     os.system("cls")  # Limpia terminal
 
     print(logo)
     print("Welcome to the Number Guessing Game!")
     print("I'm thinking of a number between 1 and 100.")
 
-    # Cálculo del número a adivinar
-    solution = random.randint(1, 100)
-    # print(f"\tSolution: {solution} (for debugging)")  # Debugging
 
-    # Selección de dificultad
+def _set_difficulty():
     choosing_difficulty = False
     while not choosing_difficulty:
         difficulty = input(
             "Choose a difficulty. Type 'easy' or 'hard': ").lower()
 
         if difficulty == 'hard':
-            attempts = 5
-            choosing_difficulty = True
+            return HARD_LEVEL_ATTEMPTS
         elif difficulty == 'easy':
-            attempts = 10
-            choosing_difficulty = True
+            return EASY_LEVEL_ATTEMPTS
         else:
             print("\tInvalid option. Please read carefully.")
+
+
+def guess_the_number():
+    _print_intro()
+
+    solution = random.randint(1, 100)  # Cálculo del número a adivinar
+    # print(f"\tSolution: {solution} (for debugging)")  # Debugging
+
+    attempts = _set_difficulty()
 
     while attempts > 0:
         print(f"You have {attempts} attempts remaning to guess the number.")

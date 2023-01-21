@@ -19,3 +19,4 @@ Diario de seguimiento del curso:
 - *Día 14*: completado el 17/01/2023.
 - *Día 15*: completado el 18/01/2023.
 - *Día 16*: completado el 19/01/2023.
+- *Día 17*: completado el 20/01/2023.

@@ -26,3 +26,4 @@ Diario de seguimiento del curso:
 - *Día 21*: completado el 22/01/2023.
 - *Día 22*: completado el 23/01/2023.
 - *Día 23*: completado el 24/01/2023.
+- *Día 24*: completado el 25/01/2023.

@@ -39,3 +39,4 @@ Diario de seguimiento del curso:
 - *Día 34*: completado el 03/02/2023.
 - *Día 35*: completado el 04/02/2023.
 - *Día 36*: completado el 04/02/2023.
+- *Día 37*: completado el 05/02/2023.

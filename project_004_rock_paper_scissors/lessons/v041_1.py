@@ -1,8 +1,8 @@
 import random
 
-import v41_02
+import v041_2
 
-print(v41_02.pi)
+print(v041_2.pi)
 
 random_integer = random.randint(1, 10)
 print(random_integer)

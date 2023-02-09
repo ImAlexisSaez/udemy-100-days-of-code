@@ -1,63 +1,73 @@
 from data import MENU, resources
 
 
-def is_resource_sufficient(order_ingredients):
-    """Returns True if there are enough ingredients. False otherwise."""
-    for item in order_ingredients:
-        if order_ingredients[item] >= resources[item]:
-            print(f"Sorry, there is not enough {item}.")
-            return False
-    return True
+def print_report():
+    """Prints a report of the coffee machine."""
+    print(f"\tWater: {resources['water']} ml")
+    print(f"\tMilk: {resources['milk']} ml")
+    print(f"\tCoffee: {resources['coffee']} g")
+    print(f"\tMoney: ${money}")
 
 
-def process_coins():
-    """Returns the total calculated from coins inserted."""
-    print("Please insert coins.")
-    total = int(input("\tHow many quarters? ")) * 0.25
-    total += int(input("\tHow many dimes? ")) * 0.1
-    total += int(input("\tHow many nickels? ")) * 0.05
-    total += int(input("\tHow many pennies? ")) * 0.01
-    return total
+def check_ingredients(order):
+    """Returns True if there are enough ingredients for the order."""
+    water_needed = MENU[order]['ingredients']['water']
+    coffee_needed = MENU[order]['ingredients']['coffee']
+    milk_needed = -1
+    if 'latte' == order or 'cappuccino' == order:
+        milk_needed = MENU[order]['ingredients']['milk']
 
-
-def is_transaction_successful(money_received, drink_cost):
-    """Return True when the payment is accepted, or False if money is insufficient."""
-    if money_received >= drink_cost:
-        global profit
-        change = round(money_received - drink_cost, 2)
-        print(f"\tHere is ${change} in change.")
-        profit += drink_cost
-        return True
-    else:
-        print("\tSorry, that's not enough money. Money refunded.")
+    if resources['water'] < water_needed:
+        print("\tSorry there is not enough water.")
         return False
-
-
-def make_coffee(drink_name, order_ingredients):
-    """Deduct the required ingredients from the resources."""
-    for item in order_ingredients:
-        resources[item] -= order_ingredients[item]
-    print(f"\tHere is your {drink_name}.")
-
-
-is_on = True
-profit = 0
-
-while is_on:
-    choice = input("What would you like? (espresso/latte/cappuccino): ").lower()
-
-    if choice == "off":
-        is_on = False
-    elif choice == "report":
-        print(f"\tWater: {resources['water']} ml")
-        print(f"\tMilk: {resources['milk']} ml")
-        print(f"\tCoffee: {resources['coffee']} g")
-        print(f"\tMoney: ${profit}")
+    elif resources['coffee'] < coffee_needed:
+        print("\tSorry there is not enough coffee.")
+        return False
+    elif resources['milk'] < milk_needed:
+        print("\tSorry there is not enough milk.")
+        return False
     else:
-        drink = MENU[choice]
-        if is_resource_sufficient(drink['ingredients']):
-            payment = process_coins()
-            if is_transaction_successful(payment, drink["cost"]):
-                make_coffee(choice, drink['ingredients'])
+        return True
 
 
+def ask_for_coins():
+    print("\tPlease, insert coins.")
+    quarters = int(input("\tHow many quarters?: "))
+    dimes = int(input("\tHow many dimes?: "))
+    nickels = int(input("\tHow many nickels?: "))
+    pennies = int(input("\tHow many pennies?: "))
+    amount = 0.25 * quarters + 0.1 * dimes + 0.05 * nickels + 0.01 * pennies
+    return amount
+
+
+def use_ingredients(order, machine_money):
+    machine_money += MENU[order]['cost']
+    resources['water'] -= MENU[order]['ingredients']['water']
+    resources['coffee'] -= MENU[order]['ingredients']['coffee']
+    if 'latte' == order or 'capuccino' == order:
+        resources['milk'] = MENU[order]['ingredients']['milk']
+    return machine_money
+
+
+is_machine_on = True
+money = 0.0
+
+while is_machine_on:
+    my_order = input("What would you like? (espresso/latte/cappuccino): ").lower()
+
+    if my_order == 'off':
+        is_machine_on = False
+    elif my_order == 'report':
+        print_report()
+    else:
+        if check_ingredients(my_order):
+            total_coins = ask_for_coins()
+            price = MENU[my_order]['cost']
+            if total_coins < price:
+                print("\tSorry that's not enough money. Money refunded.")
+            else:
+                change = total_coins - price
+                if change > 0:
+                    print(f"\tHere is ${change:.2f} in change.")
+                money = use_ingredients(my_order, money)
+                print(f"\tHere is your {my_order}. Enjoy!")

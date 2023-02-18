@@ -12,4 +12,4 @@ En el interior de cada proyecto, cuando corresponde, se encuentra una carpeta de
 | Semana del 23/01/2023 | Completados los días 22 a 29.                                    |
 | Semana del 30/01/2023 | Completados los días 30 a 38.                                    |
 | Semana del 06/02/2023 | Reorganiza código del repositorio. Completados los días 39 a 43. |
-| Semana del 13/02/2023 | Completados los días 44 a 53.                                    |
+| Semana del 13/02/2023 | Completados los días 44 a 54.                                    |
